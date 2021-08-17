@@ -34,6 +34,8 @@ router.post('/login', async (req,res) => {
 
  const user = await User.findOne({email:req.body.email});
  if(!user) return res.status(400).send('Email or Password is Wrong');
+
+ if(!user.isVerified) return res.status(400).send('Please Verificate your Account.')
  
   const validPass = await bcrypt.compare(req.body.password,user.password);
   if(!validPass) return res.status(400).send("Invalid Password");
