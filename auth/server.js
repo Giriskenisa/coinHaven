@@ -1,11 +1,15 @@
-const router = require('express').Router();
+const express = require('express');
+const app = express();
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const {registerValidation,loginValidation} = require('../validation')
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 
-router.post('/register', async (req, res) =>{
+
+app.use(express.json());
+
+app.post('/register', async (req, res) =>{
     const {error} = registerValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
@@ -28,9 +32,13 @@ router.post('/register', async (req, res) =>{
         console.log(err);
         res.status(400).send(err);
     }
+});
+
+app.get('/deneme',(req,res,next)=>{
+  res.send("Hello from me");
 })
 
-router.post('/login', async (req,res) => {
+app.post('/login', async (req,res) => {
  const {error} = loginValidation(req.body);
  if(error) return res.status(400).send(error.details[0].message);
 
@@ -46,7 +54,7 @@ router.post('/login', async (req,res) => {
   res.header('token',token).send(token);
 });
 
-router.get('/verify/:id',async (req, res) =>{
+app.get('/verify/:id',async (req, res) =>{
     const id = req.params.id;
     const user = await User.findOne({_id:id})
     if(user){
@@ -86,6 +94,6 @@ const sendMail = (email,id) => {
     });
     
 }
-
-
-module.exports = router;
+app.listen(3001,()=>{
+  console.log("running auth");
+})
