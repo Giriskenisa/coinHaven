@@ -16,6 +16,12 @@ exampleBody: {
     "password":"12121212"
 }
 
-and then publisher will publish the information and subscriber will be ready for this publish to read and write to console.
+and then publisher will publish the information and subscriber will be ready for this publish to read and write to console(Will publish User id).
+
+
+If you want to access this user from from database you can use: 
+GET http://localhost:4000/:id
+
+
 
 
