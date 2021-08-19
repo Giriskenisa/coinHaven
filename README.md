@@ -23,5 +23,8 @@ If you want to access this user from from database you can use:
 GET http://localhost:4000/:id
 
 
+Please be sure that redis-server is installed on your local machine and running on default port : 6379
+
+
 
 
