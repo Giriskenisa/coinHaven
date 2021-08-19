@@ -5,7 +5,7 @@ const pub = new Redis();
 const channel = 'registerChannel';
 
 redis.on('message', (channel, message) => {
-    console.log(`User body has been received from post request ${channel}: ${message}`);
+    console.log(`${message} \n`);
 });
 
 
@@ -13,7 +13,7 @@ redis.subscribe(channel, (error, count) => {
     if (error) {
         throw new Error(error);
     }
-    console.log(`Subscribed to ${channel}. Listening for updates on the ${channel} channel.`);
+    console.log(`Subscribed to ${channel}. Listening for updates on the ${channel} channel.\n`);
 });
 
 function publish (user) {
