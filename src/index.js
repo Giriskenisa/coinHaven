@@ -6,24 +6,23 @@ var register = require('./lib/user-register');
 app.use(express.json())
 .use(express.raw());
 
-app.post('/',(req,res,next)=>{
+app.post('/register',(req,res,next)=>{
     try{
         register.createUser(JSON.stringify(req.body));
+        res.sendStatus(200);
         res.end();
     }catch(err) {
-      console.log(err.message)
       res.end();
     }
     
 }
 );
 
-app.get('/:id',(req,res,next)=>{
+app.get('/:email',(req,res,next)=>{
     try{
-        const a = register.getUser(req.params.id);
-        res.end(a);
+        const a = register.getUser(req.params.email);
+        res.sendStatus(200).json({'user':a});
     }catch(err) {
-      console.log(err.message)
       res.end();
     }
     
